@@ -13,27 +13,59 @@ uint insertar_bits(uint x, int pos, uint y, int len) {
 		mask1<<=1;
 		mask1=mask1+1;
 	}
-	printf("%i\n",mask1);
 	uint mask2=~mask1;
-	printf("%i\n",mask2);
-
-
+	
 	uint xa = x&mask2;
 	uint xb = x&mask1;
 
-	printf("El x original: %i\n",x);
-	printf("El x con mascara 2: %i\n",xa);
-	printf("El x con mascara 1: %i\n",xb);
-
 	xa<<=len;
 	y<<=pos;
-
 	uint out = xa+y+xb;
-	printf("Output: %i\n",out);
 	return out;
 }
 
 
 void eliminar_espacios(char *s) {
+	char *p= s;
+
+	int size = strlen(p);
+	//char *s2=malloc(size*sizeof(char));
+
+	int i;
+	int c=0,end=0;
+	for(i=0;i<size;i++){
+		
+		if(*p==' '){
+
+			
+			if(c==0){
+				*s=*p;
+
+				c++;
+				s++;
+				p++;
+				end++;
+			}
+			else{
+				c++;
+				p++;				
+			}
+
+		}
+		else{
+			*s=*p;
+			c=0;
+			s++;
+			p++;
+			end++;
+		}
+
+
+	}
+	*s='\0';
+	for(i=0; i < end; i++){
+		s--;
+	}
+	//s=s2;
   
 }
