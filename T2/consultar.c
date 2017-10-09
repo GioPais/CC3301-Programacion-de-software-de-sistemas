@@ -90,9 +90,9 @@ void line_analysis(char *s,FILE *in2,char *izq,char *der,char *key,char *value){
 int main(int argc, char **argv) {
 	
 	char *target=argv[2];
-	printf("Buscando: %s\n", target);
+	//printf("Buscando: %s\n", target);
 	FILE *in2;
-	printf("Abriendo archivo %s ...\n", argv[1]);
+	//printf("Abriendo archivo %s ...\n", argv[1]);
 	in2= fopen(argv[1], "r");
 
 	char izq[11];
@@ -102,10 +102,10 @@ int main(int argc, char **argv) {
 
 	line_analysis(argv[1],in2,izq,der,key,value);
 
-	printf("Izq  : %s\n", izq);
-	printf("Der  : %s\n", der);
-	printf("Key  : %s\n", key);
-	printf("Value: %s\n", value);
+	//printf("Izq  : %s\n", izq);
+	//printf("Der  : %s\n", der);
+	//printf("Key  : %s\n", key);
+	//printf("Value: %s\n", value);
 
 	//fseek(in2, 200, SEEK_SET);
 	
@@ -113,32 +113,32 @@ int main(int argc, char **argv) {
 	int next_line=0;
 	while(condicion){
 		if(strcmp(target,key)==0){
-			printf("Encontre la palabra: %s\n",value);
+			printf("%s\n",value);
 			break;
 		}
 		if(strcmp(target,key)>0){
 			next_line=atoi(der);
 			next_line=next_line*100;
-			printf("Avanza anodo derecho: %d\n",next_line);
+			//printf("Avanza a nodo derecho: %d\n",next_line);
 		}
 		if(strcmp(target,key)<0){
 			next_line=atoi(izq);
 			next_line=next_line*100;
-			printf("Avanza anodo izquierdo: %d\n",next_line);
+			//printf("Avanza a nodo izquierdo: %d\n",next_line);
 		}
 
 		if(next_line<0){
-			printf("No se encontro palabra\n");
+			printf("palabra no encontrada\n");
 			break;
 		}
 		fseek(in2, next_line, SEEK_SET);
 
 		line_analysis(argv[1],in2,izq,der,key,value);
 
-		printf("Izq  : %s\n", izq);
-		printf("Der  : %s\n", der);
-		printf("Key  : %s\n", key);
-		printf("Value: %s\n", value);
+		//printf("Izq  : %s\n", izq);
+		//printf("Der  : %s\n", der);
+		//printf("Key  : %s\n", key);
+		//printf("Value: %s\n", value);
 
 	}
 	fclose(in2);
