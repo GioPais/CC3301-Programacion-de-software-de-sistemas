@@ -60,6 +60,11 @@ void line_analysis(FILE *in,char *izq,char *der,char *key,char *value){
 
 int main(int argc, char **argv) {
 	
+	if (argc != 3){
+		printf("Entrada invalida\n" );
+		exit(1);
+	}
+
 	char *target=argv[2];
 	FILE *in;
 	in= fopen(argv[1], "r");
