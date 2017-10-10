@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 void line_analysis(FILE *in,char *izq,char *der,char *key,char *value){
 
 	int i=1;
@@ -76,7 +75,6 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "No se puede leer '%s'\n", argv[1]);
 		exit(1);
 	}
-
 	char izq[11];
 	char der[11];
 	char key[21];
