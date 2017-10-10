@@ -8,8 +8,12 @@ void line_analysis(FILE *in,char *izq,char *der,char *key,char *value){
 	int i=1;
 	char aux='a';
 	int save=1;
+	char buff[101];
+	fread(buff,1,100,in);
+	buff[100]='\0';
+	//printf("%s",buff );
 	for(i=0;i<10;i++){
-		aux=getc(in);
+		aux=buff[i];
 		if(aux==' '){
 			izq[i]='\0';
 			save=0;
@@ -21,7 +25,7 @@ void line_analysis(FILE *in,char *izq,char *der,char *key,char *value){
 	}
 	save=1;
 	for(i=0;i<10;i++){
-		aux=getc(in);
+		aux=buff[i+10];
 		if(aux==' '){
 			der[i]='\0';
 			save=0;
@@ -34,7 +38,7 @@ void line_analysis(FILE *in,char *izq,char *der,char *key,char *value){
 
 	save=1;
 	for(i=0;i<20;i++){
-		aux=getc(in);
+		aux=buff[i+20];
 		if(aux==' '){
 			key[i]='\0';
 			save=0;
@@ -46,7 +50,7 @@ void line_analysis(FILE *in,char *izq,char *der,char *key,char *value){
 
 	save=1;
 	for(i=0;i<60;i++){
-		aux=getc(in);
+		aux=buff[i+40];
 		value[i]=aux;		
 	}
 	value[i]='\0';
@@ -67,7 +71,11 @@ int main(int argc, char **argv) {
 
 	char *target=argv[2];
 	FILE *in;
-	in= fopen(argv[1], "r");
+	
+	if ((in= fopen(argv[1], "r"))==NULL) {
+		fprintf(stderr, "No se puede leer '%s'\n", argv[1]);
+		exit(1);
+	}
 
 	char izq[11];
 	char der[11];
@@ -80,7 +88,7 @@ int main(int argc, char **argv) {
 	int next_line=0;
 	while(condicion){
 		if(strcmp(target,key)==0){
-			printf("%s\n",value);
+			printf("%s",value);
 			break;
 		}
 		if(strcmp(target,key)>0){
