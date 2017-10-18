@@ -13,8 +13,13 @@ pthread_cond_t cond;
 
 int vendo(int precio, char *vendedor, char *comprador){
 	
-
 	pthread_mutex_lock(&mutex);
+	if (precio>=mejor_precio){
+		pthread_mutex_unlock(&mutex);
+		return 0;
+	}
+
+	
 	while(*comprador_actual=='\0'){
 		if (precio>=mejor_precio){
 			pthread_mutex_unlock(&mutex);
