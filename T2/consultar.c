@@ -48,11 +48,21 @@ void line_analysis(FILE *in,char *izq,char *der,char *key,char *value){
 	}
 
 	save=1;
+	int count=0;
 	for(i=0;i<60;i++){
 		aux=buff[i+40];
-		value[i]=aux;		
+		value[i]=aux;
+		if(aux==' '){
+			count=count+1;
+		}
+		else{
+			count=0;
+		}
+		if(count ==2){
+			value[i-1]='\0';		
+		}
 	}
-	value[i]='\0';
+	//value[i]='\0';
 
 	if(ferror(in)){
 		printf("ERROR!\n");
@@ -86,7 +96,7 @@ int main(int argc, char **argv) {
 	int next_line=0;
 	while(condicion){
 		if(strcmp(target,key)==0){
-			printf("%s",value);
+			printf("%s\n",value);
 			break;
 		}
 		if(strcmp(target,key)>0){
