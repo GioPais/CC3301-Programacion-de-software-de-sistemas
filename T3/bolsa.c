@@ -14,32 +14,31 @@ pthread_cond_t cond;
 int vendo(int precio, char *vendedor, char *comprador){
 	
 	pthread_mutex_lock(&mutex);
-	if (precio>=mejor_precio){
-		pthread_mutex_unlock(&mutex);
-		return 0;
-	}
 
-	
-	while(*comprador_actual=='\0'){
-		if (precio>=mejor_precio){
+	if(precio>=mejor_precio){
+		pthread_mutex_unlock(&mutex);
+		return 0;		
+	}
+	else{
+		strcpy(mejor_vendedor, vendedor);
+		mejor_precio=precio;
+		pthread_cond_broadcast(&cond);
+
+		pthread_cond_wait(&cond, &mutex);
+
+		if(*comprador_actual=='\0'){
 			pthread_mutex_unlock(&mutex);
-			return 0;
+			return 0;		
 		}
 		else{
-			strcpy(mejor_vendedor, vendedor);
-			mejor_precio=precio;
-			pthread_cond_broadcast(&cond);
+			strcpy(comprador, comprador_actual);
+			*comprador_actual ='\0';
+			*mejor_vendedor ='\0';
+			mejor_precio=INT_MAX;
+			pthread_mutex_unlock(&mutex);
+			return 1;
 		}
-		pthread_cond_wait(&cond, &mutex);
-		
-	}
-	strcpy(comprador, comprador_actual);
-	*comprador_actual ='\0';
-	*mejor_vendedor ='\0';
-	mejor_precio=INT_MAX;
-	pthread_mutex_unlock(&mutex);
-	return 1;
-	
+	}	
 }
 
 int compro(char *comprador, char *vendedor){
@@ -54,6 +53,7 @@ int compro(char *comprador, char *vendedor){
 	pthread_cond_broadcast(&cond);
 	pthread_mutex_unlock(&mutex);
 	return mejor_precio;
+	
 }
 
 
