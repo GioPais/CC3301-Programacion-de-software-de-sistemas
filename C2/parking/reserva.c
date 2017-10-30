@@ -23,7 +23,7 @@ void update(){
 		
 		for(j=i;j<5;j++){
 
-			if (libres[j]==-0){
+			if (libres[j]==0){
 				break;
 			}
 			else{
@@ -50,7 +50,7 @@ int reservar(char *nom, int k){
 		for (i=0;i<5;i++){
 			if(libres[i]>=k){
 				int j=0;
-				for(j=0;(j)<k;j++){
+				for(j=0;j<k;j++){
 					libres[i+j]=0;
 					strcpy(nombres[i+j],nom);
 				}
